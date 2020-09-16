@@ -1,0 +1,257 @@
+{
+  "id": 21,
+  "name": "tinaya_bbs_feeling",
+  "display_name": "天涯论坛-情感天地专区【主贴】",
+  "remark": "",
+  "tags": "[]",
+  "start_urls": [
+    "http://bbs.tianya.cn/list-feeling-1.shtml"
+  ],
+  "start_stage": "thread_list",
+  "cron": "",
+  "enable_cron": false,
+  "create_time": "2020-09-16T10:48:45.05502Z",
+  "update_time": "2020-09-16T13:10:04.093258Z",
+  "stages": [
+    {
+      "id": 453,
+      "project_id": 21,
+      "name": "thread_list",
+      "is_list": true,
+      "is_unique": false,
+      "list_xpath": "//div[contains(@class, \"mt5\")]/table/tbody/tr[count(th)=0]",
+      "list_css": "",
+      "page_xpath": "//a[@rel=\"nofollow\" and text()=\"下一页\"]/attribute::href",
+      "page_css": "",
+      "page_attr": "",
+      "plugins": "",
+      "plugin_array": null,
+      "fields": [
+        {
+          "id": 1708,
+          "project_id": 21,
+          "stage_id": 453,
+          "name": "thread_id",
+          "is_array": false,
+          "is_html": false,
+          "xpath": "//td[contains(@class, \"td-title\")]/a/attribute::href",
+          "css": "",
+          "attr": "",
+          "plugin": "get_thread_id@s4",
+          "_plugin": {
+            "id": 90,
+            "name": "get_thread_id",
+            "script": "(function(){\n  // Plugin Name: get_thread_id\n  // Start here...\n  var val = ENV(\"currentFieldValue\");\n  return REGEXP_GROUP_FIND(\".+-([0-9]+)-[0-9]+.+\", val, \"$1\")\n})()",
+            "slot": "s4",
+            "project_id": 21
+          },
+          "remark": "标题",
+          "next_stage": ""
+        },
+        {
+          "id": 1709,
+          "project_id": 21,
+          "stage_id": 453,
+          "name": "title",
+          "is_array": false,
+          "is_html": false,
+          "xpath": "//td[contains(@class, \"td-title\")]/a",
+          "css": "",
+          "attr": "",
+          "plugin": "",
+          "_plugin": null,
+          "remark": "标题",
+          "next_stage": ""
+        },
+        {
+          "id": 1710,
+          "project_id": 21,
+          "stage_id": 453,
+          "name": "thread_url",
+          "is_array": false,
+          "is_html": false,
+          "xpath": "//td[contains(@class, \"td-title\")]/a/attribute::href",
+          "css": "",
+          "attr": "",
+          "plugin": "abs@s4",
+          "_plugin": {
+            "id": 85,
+            "name": "abs",
+            "script": "(function(){\n  // Plugin Name: abs\n  // Start here...\n  return ABS(ENV(\"currentFieldValue\"));\n})()",
+            "slot": "s4",
+            "project_id": 21
+          },
+          "remark": "帖子url",
+          "next_stage": "thread_detail"
+        },
+        {
+          "id": 1711,
+          "project_id": 21,
+          "stage_id": 453,
+          "name": "author",
+          "is_array": false,
+          "is_html": false,
+          "xpath": "//a[@class=\"author\"]",
+          "css": "",
+          "attr": "",
+          "plugin": "",
+          "_plugin": null,
+          "remark": "作者",
+          "next_stage": ""
+        },
+        {
+          "id": 1712,
+          "project_id": 21,
+          "stage_id": 453,
+          "name": "author_id",
+          "is_array": false,
+          "is_html": false,
+          "xpath": "//a[@class=\"author\"]/attribute::href",
+          "css": "",
+          "attr": "",
+          "plugin": "parse_author_id@s4",
+          "_plugin": {
+            "id": 84,
+            "name": "parse_author_id",
+            "script": "(function(){\n  // Plugin Name: parse_author_id\n  // Start here...\n  // 获取作者id\n  var val = ENV(\"currentFieldValue\");\n  return val.substring(val.lastIndexOf(\"/\")+1);\n})()",
+            "slot": "s4",
+            "project_id": 21
+          },
+          "remark": "作者id",
+          "next_stage": ""
+        },
+        {
+          "id": 1713,
+          "project_id": 21,
+          "stage_id": 453,
+          "name": "click",
+          "is_array": false,
+          "is_html": false,
+          "xpath": "/td[3]",
+          "css": "",
+          "attr": "",
+          "plugin": "",
+          "_plugin": null,
+          "remark": "点击",
+          "next_stage": ""
+        },
+        {
+          "id": 1714,
+          "project_id": 21,
+          "stage_id": 453,
+          "name": "reply",
+          "is_array": false,
+          "is_html": false,
+          "xpath": "/td[4]",
+          "css": "",
+          "attr": "",
+          "plugin": "",
+          "_plugin": null,
+          "remark": "回复",
+          "next_stage": ""
+        },
+        {
+          "id": 1715,
+          "project_id": 21,
+          "stage_id": 453,
+          "name": "date",
+          "is_array": false,
+          "is_html": false,
+          "xpath": "/td[5]/attribute::title",
+          "css": "",
+          "attr": "",
+          "plugin": "",
+          "_plugin": null,
+          "remark": "发表时间",
+          "next_stage": ""
+        }
+      ],
+      "has_next_stage": true
+    },
+    {
+      "id": 454,
+      "project_id": 21,
+      "name": "thread_detail",
+      "is_list": false,
+      "is_unique": false,
+      "list_xpath": "",
+      "list_css": "",
+      "page_xpath": "",
+      "page_css": "",
+      "page_attr": "",
+      "plugins": "",
+      "plugin_array": null,
+      "fields": [
+        {
+          "id": 1716,
+          "project_id": 21,
+          "stage_id": 454,
+          "name": "content",
+          "is_array": false,
+          "is_html": true,
+          "xpath": "//div[contains(@class, \"host-item\")]//div[contains(@class, \"bbs-content\")]",
+          "css": "",
+          "attr": "",
+          "plugin": "",
+          "_plugin": null,
+          "remark": "帖子内容",
+          "next_stage": ""
+        },
+        {
+          "id": 1717,
+          "project_id": 21,
+          "stage_id": 454,
+          "name": "host_reply",
+          "is_array": false,
+          "is_html": false,
+          "xpath": "//div[@class=\"host-data\"]/span[1]",
+          "css": "",
+          "attr": "",
+          "plugin": "get_number@s4",
+          "_plugin": {
+            "id": 86,
+            "name": "get_number",
+            "script": "(function(){\n  // Plugin Name: get_number\n  // Start here...\n  // 提取数字\n  var val = ENV(\"currentFieldValue\");\n  if (val==\"\") {\n  \treturn \"0\"\n  }\n  return REGEXP_GROUP_FIND(\".*([0-9]+).*\", val, \"$1\")\n})()",
+            "slot": "s4",
+            "project_id": 21
+          },
+          "remark": "楼主发言次数",
+          "next_stage": ""
+        },
+        {
+          "id": 1718,
+          "project_id": 21,
+          "stage_id": 454,
+          "name": "img_count",
+          "is_array": false,
+          "is_html": false,
+          "xpath": "//div[@class=\"host-data\"]/span[2]",
+          "css": "",
+          "attr": "",
+          "plugin": "get_number@s4",
+          "_plugin": {
+            "id": 86,
+            "name": "get_number",
+            "script": "(function(){\n  // Plugin Name: get_number\n  // Start here...\n  // 提取数字\n  var val = ENV(\"currentFieldValue\");\n  if (val==\"\") {\n  \treturn \"0\"\n  }\n  return REGEXP_GROUP_FIND(\".*([0-9]+).*\", val, \"$1\")\n})()",
+            "slot": "s4",
+            "project_id": 21
+          },
+          "remark": "发图个数",
+          "next_stage": ""
+        }
+      ],
+      "has_next_stage": false
+    }
+  ],
+  "headers": {
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML,like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+  },
+  "settings": {
+    "CONCURRENT_REQUESTS": "5"
+  },
+  "node_affinity": [
+    ""
+  ],
+  "node_affinity_parsed": null,
+  "extras": null
+}
