@@ -15,4 +15,5 @@
 - [TapTap排行榜](cfg/taptap_top.cfg.json)
 - [天涯论坛-情感天地专区【主贴】](cfg/tinaya_bbs_feeling.cfg.json)
 - [天涯论坛-情感天地专区【跟帖】](cfg/tinaya_bbs_feeling_comment.cfg.json)
+- [IT之家新闻](cfg/it_home_news.cfg.json)
 

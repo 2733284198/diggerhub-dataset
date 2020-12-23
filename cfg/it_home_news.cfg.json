@@ -1,0 +1,166 @@
+{
+  "id": 3,
+  "name": "it_home",
+  "display_name": "IT之家新闻",
+  "remark": "",
+  "tags": "[]",
+  "start_urls": [
+    "https://www.ithome.com/"
+  ],
+  "start_stage": "list",
+  "cron": "*/30 * * * *",
+  "enable_cron": false,
+  "create_time": "2020-12-15T11:09:43.761278Z",
+  "update_time": "2020-12-23T09:31:11.786342Z",
+  "stages": [
+    {
+      "id": 60,
+      "project_id": 3,
+      "name": "list",
+      "is_list": true,
+      "is_unique": false,
+      "list_xpath": "//div[@id=\"nnews\"]//ul[@class=\"nl\"]/li/a",
+      "list_css": "",
+      "page_xpath": "",
+      "page_css": "",
+      "page_attr": "",
+      "plugins": "",
+      "plugin_array": null,
+      "fields": [
+        {
+          "id": 131,
+          "project_id": 3,
+          "stage_id": 60,
+          "name": "title",
+          "is_array": false,
+          "is_html": false,
+          "xpath": "",
+          "css": "",
+          "attr": "",
+          "plugin": "",
+          "_plugin": null,
+          "remark": "标题",
+          "next_stage": ""
+        },
+        {
+          "id": 132,
+          "project_id": 3,
+          "stage_id": 60,
+          "name": "detail_url",
+          "is_array": false,
+          "is_html": false,
+          "xpath": "/attribute::href",
+          "css": "",
+          "attr": "",
+          "plugin": "",
+          "_plugin": null,
+          "remark": "新闻链接",
+          "next_stage": "detail"
+        }
+      ],
+      "has_next_stage": true
+    },
+    {
+      "id": 61,
+      "project_id": 3,
+      "name": "detail",
+      "is_list": false,
+      "is_unique": false,
+      "list_xpath": "",
+      "list_css": "",
+      "page_xpath": "",
+      "page_css": "",
+      "page_attr": "",
+      "plugins": "",
+      "plugin_array": null,
+      "fields": [
+        {
+          "id": 133,
+          "project_id": 3,
+          "stage_id": 61,
+          "name": "publish_time",
+          "is_array": false,
+          "is_html": false,
+          "xpath": "//span[@id=\"pubtime_baidu\"]",
+          "css": "",
+          "attr": "",
+          "plugin": "convert_date@s4",
+          "_plugin": {
+            "id": 2,
+            "name": "convert_date",
+            "script": "(function(){\n  // Plugin Name: convert_date\n  // Start here...\n  return REPLACE(ENV(\"currentFieldValue\"), \"/\", \"-\")\n})()",
+            "slot": "s4",
+            "project_id": 3
+          },
+          "remark": "发布时间",
+          "next_stage": ""
+        },
+        {
+          "id": 134,
+          "project_id": 3,
+          "stage_id": 61,
+          "name": "author",
+          "is_array": false,
+          "is_html": false,
+          "xpath": "//span[@id=\"source_baidu\"]",
+          "css": "",
+          "attr": "",
+          "plugin": "remove_prefix@s4",
+          "_plugin": {
+            "id": 3,
+            "name": "remove_prefix",
+            "script": "(function(){\n  // Plugin Name: remove_prefix\n  // Start here...\n  var val = ENV(\"currentFieldValue\");\n  console.log(\"来源：\" + val);\n  if (STARTS_WITH(val, \"来源：\")) {\n  \treturn SUBSTR(val, 3, LEN(val));\n  }\n  return val;\n})()",
+            "slot": "s4",
+            "project_id": 3
+          },
+          "remark": "新闻来源",
+          "next_stage": ""
+        },
+        {
+          "id": 135,
+          "project_id": 3,
+          "stage_id": 61,
+          "name": "content",
+          "is_array": false,
+          "is_html": true,
+          "xpath": "//div[@id=\"paragraph\"]",
+          "css": "",
+          "attr": "",
+          "plugin": "",
+          "_plugin": null,
+          "remark": "内容",
+          "next_stage": ""
+        },
+        {
+          "id": 136,
+          "project_id": 3,
+          "stage_id": 61,
+          "name": "tags",
+          "is_array": true,
+          "is_html": false,
+          "xpath": "//div[@class=\"hot_tags\"]//a",
+          "css": "",
+          "attr": "",
+          "plugin": "",
+          "_plugin": null,
+          "remark": "标签",
+          "next_stage": ""
+        }
+      ],
+      "has_next_stage": false
+    }
+  ],
+  "headers": {
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML,like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+  },
+  "settings": {
+    "CONCURRENT_REQUESTS": "15"
+  },
+  "node_affinity": [
+    ""
+  ],
+  "node_affinity_parsed": null,
+  "proxies": null,
+  "pushes": null,
+  "extras": null
+}
